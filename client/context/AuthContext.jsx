@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
 
 // Attach token to every request
 axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (data.success) {
-        localStorage.setItem('token', data.token);
+        sessionStorage.setItem('token', data.token);
         setAuthUser(data.userData);
         connectSocket(data.userData);
         toast.success(data.message);
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     setAuthUser(null);
     setOnlineUsers([]);
     if (socket) socket.disconnect();
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (err) {
       // Only show error if token exists (prevents 401 on first page load)
-      if (localStorage.getItem('token')) {
+      if (sessionStorage.getItem('token')) {
         toast.error(err.response?.data?.message || err.message);
       }
     }
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token) {
       checkAuth();
     }
