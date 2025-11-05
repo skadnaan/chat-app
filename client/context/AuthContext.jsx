@@ -73,7 +73,10 @@ export const AuthProvider = ({ children }) => {
         connectSocket(data.user);
       }
     } catch (err) {
-      toast.error(err.message);
+      // Only show error if token exists (prevents 401 on first page load)
+      if (localStorage.getItem('token')) {
+        toast.error(err.response?.data?.message || err.message);
+      }
     }
   };
 
@@ -92,7 +95,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    checkAuth();
+    const token = localStorage.getItem('token');
+    if (token) {
+      checkAuth();
+    }
   }, []);
 
   const value = useMemo(
