@@ -9,7 +9,7 @@ import { AuthContext } from '../context/AuthContext.jsx';
 const App = () => {
   const { authUser } = useContext(AuthContext);
   return (
-    <div className="bg-[url('./src/assets/background.jpg')] bg-cover bg-center">
+    <div className="bg-[url('/background.jpg')] bg-cover bg-center">
       <Toaster />
       <Routes>
         <Route
