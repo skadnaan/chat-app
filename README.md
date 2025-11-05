@@ -6,6 +6,7 @@ A full-stack real-time chat application built with **React + Vite**, **Node.js/E
 
 Frontend (Vercel): https://chat-app-fe-pearl.vercel.app/
 Backend (Render): https://chat-app-6l6b.onrender.com
+when you paste this render url remember to type '/api/status' at the end of url cause the default route is set to '/api/status' ...
 
 ## 📸 Features
 
